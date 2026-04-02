@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: drupal-app
+  namespace: drupal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: drupal-app
+  template:
+    metadata:
+      labels:
+        app: drupal-app
+    spec:
+      containers:
+        - name: drupal-app
+          image: varunp100288/drupal11-app:25
+          ports:
+            - containerPort: 80
+          env:
+            - name: DB_NAME
+              value: db
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: root
+            - name: DB_HOST
+              value: mysql-service
+            - name: DB_PORT
+              value: "3306"
